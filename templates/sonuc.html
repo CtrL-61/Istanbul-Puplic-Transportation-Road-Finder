@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ baslangic }} -> {{ hedef }} Rota Sonucu</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <main>
+        <h2>Rota Hesaplama Sonucu</h2>
+        <p><b>Başlangıç:</b> {{ baslangic }}</p>
+        <p><b>Hedef:</b> {{ hedef }}</p>
+        
+        <p><b>Toplam Süre:</b> {{ rota_sonucu.toplam_sure }} dakika</p>
+        
+        <h3>Rota Detayları:</h3>
+        
+        <ol>
+        {% for adım in rota_sonucu.rota %}
+            {% if loop.index == 1 %}
+                <li>{{ adım.durak }} (Başlangıç)</li>
+            {% else %}
+                {% if adım.hat == 'Aktarma' %}
+                    <li class="aktarma-adimi">➡️ **Aktarma Yap:** {{ adım.durak }}</li>
+                {% else %}
+                    <li class="yolculuk-adimi">🚇 {{ adım.hat }} ile: {{ adım.durak }}</li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        </ol>
+        
+        <p><a href="/">Yeni Arama Yap</a></p>
+    </main>
+</body>
+</html>

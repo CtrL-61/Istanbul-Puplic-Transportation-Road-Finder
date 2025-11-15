@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>İstanbul Toplu Taşıma Rotası</title>
+    <link rel="stylesheet" href="/static/css/style.css"> 
+</head>
+<body>
+    <header>
+        <h1>İstanbul Toplu Taşıma Arama</h1>
+    </header>
+    
+    <main>
+        <form method="POST" action="/arama">
+            <h2>Rota Bul</h2>
+            
+            <label for="baslangic">Başlangıç Durağı:</label>
+            <input type="text" id="baslangic" name="baslangic" list="durak_listesi" required>
+            
+            <label for="hedef">Hedef Durak:</label>
+            <input type="text" id="hedef" name="hedef" list="durak_listesi" required>
+            
+            <datalist id="durak_listesi">
+                {% for durak in duraklar %}
+                    <option value="{{ durak }}">
+                {% endfor %}
+            </datalist>
+            
+            <button type="submit">Rotayı Hesapla</button>
+        </form>
+    </main>
+    
+    <footer>
+        <p>Tüm hatlar başarıyla yüklendi.</p>
+    </footer>
+
+</body>
+</html>
