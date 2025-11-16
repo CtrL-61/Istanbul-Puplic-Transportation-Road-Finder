@@ -1,2 +1,3 @@
 # Istanbul-Puplic-Transportation-Road-Finder
 Istanbul puplic transportation road finder
+#This project was written on my phone. The programming languages ​​used are Python, HTML, and CSS. Our project doesn't currently have a website, but I plan to create one soon. However, having attended a good and challenging high school, I suspect this development may be slow. Thank you in advance for your support.
