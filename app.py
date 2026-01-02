@@ -302,22 +302,40 @@ def rota_hesapla(baslangic, hedef):
 
 # ------------------------------------------------------------------
 # API Endpoint'leri
+<<<<<<< HEAD
+=======
+# 
+# ------------------------------------------------------------------
+# API Endpoint'leri
+>>>>>>> 5bb0b9c (Optimizasyon için düzeltilmiş kodlar)
 # ------------------------------------------------------------------
 
 # 1. Anasayfa (HTML formunun yükleneceği yer)
 @app.route('/')
 def index():
+<<<<<<< HEAD
     # Tüm durak isimlerini otomatik tamamlama için toplayalım
+=======
+>>>>>>> 5bb0b9c (Optimizasyon için düzeltilmiş kodlar)
     tum_duraklar = sorted(list(G.nodes()))
     return render_template('index.html', duraklar=tum_duraklar)
 
 # 2. Rota Hesaplama API'si (Formun veriyi göndereceği yer)
+<<<<<<< HEAD
 @app.route('/hesapla', methods=['POST'])
 def hesapla():
+=======
+@app.route('/arama', methods=['POST']) # <-- Burası /hesapla yerine /arama olmalı
+def arama(): # <-- Fonksiyon adı da arama olmalı
+>>>>>>> 5bb0b9c (Optimizasyon için düzeltilmiş kodlar)
     baslangic = request.form.get('baslangic')
     hedef = request.form.get('hedef')
     
     if not baslangic or not hedef:
+<<<<<<< HEAD
+=======
+        # Hata durumunda HTML döndürmek yerine JSON döndürelim
+>>>>>>> 5bb0b9c (Optimizasyon için düzeltilmiş kodlar)
         return jsonify({"basarili": False, "hata": "Başlangıç ve hedef durakları zorunludur."})
         
     sonuc = rota_hesapla(baslangic.strip(), hedef.strip())
@@ -325,5 +343,10 @@ def hesapla():
 
 if __name__ == '__main__':
     # Flask uygulamasını çalıştır
+<<<<<<< HEAD
     print("Web uygulaması başlatılıyor... http://127.0.0.1:5000/")
     app.run(debug=True)
+=======
+    print("Web uygulaması başlatılıyor... http://127.0.0.1:5000")
+    app.run(debug=True)
+>>>>>>> 5bb0b9c (Optimizasyon için düzeltilmiş kodlar)
