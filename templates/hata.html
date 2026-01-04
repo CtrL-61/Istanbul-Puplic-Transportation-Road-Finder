@@ -1,18 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hata!</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Route Not Found</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0f172a; color: white; font-family: 'Plus Jakarta Sans', sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .error-card { background: #1e293b; border: 1px solid #ef444455; padding: 40px; border-radius: 24px; text-align: center; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .icon { font-size: 4rem; margin-bottom: 20px; animation: shake 0.5s; display: inline-block; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .btn-retry { background: #334155; color: white; text-decoration: none; padding: 12px 30px; border-radius: 12px; font-weight: bold; display: inline-block; transition: 0.3s; }
+        .btn-retry:hover { background: #475569; color: #38bdf8; }
+    </style>
 </head>
 <body>
-    <main style="background-color: #fdd; color: #a00;">
-        <h2>İşlem Başarısız</h2>
-        <p>Hesaplama sırasında bir sorun oluştu veya rota bulunamadı.</p>
-        
-        <p><b>Mesaj:</b> {{ mesaj }}</p>
-        
-        <p><a href="/">Geri Dön</a></p>
-    </main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="error-card mx-auto">
+                    <div class="icon">⚠️</div>
+                    <h2 class="fw-bold mb-3">Oops! No Route Found</h2>
+                    <p class="text-secondary">We couldn't calculate a path between these stations.</p>
+                    <div class="alert alert-danger bg-dark border-0 text-danger small py-3 my-4">
+                        <strong>System Message:</strong> {{ mesaj }}
+                    </div>
+                    <a href="/" class="btn-retry">Try Again</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
