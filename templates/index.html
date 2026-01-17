@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="{{ current_lang if current_lang else 'tr' }}" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
         .glass-card { background: var(--card); border: 1px solid #334155; border-radius: 24px; padding: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
         .top-nav { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000; }
         .nav-btn { background: var(--card); border: 1px solid #334155; color: var(--text); padding: 8px 15px; border-radius: 10px; cursor: pointer; text-decoration: none; font-size: 0.8rem; font-weight: 600; transition: 0.2s; }
-        .nav-btn:hover { border-color: var(--accent); }
+        .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
         .custom-input { background-color: var(--bg) !important; color: var(--text) !important; border: 2px solid #334155; padding: 15px; border-radius: 14px; width: 100%; transition: 0.2s; }
         .custom-input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
         .btn-pulse { background: linear-gradient(135deg, var(--accent), #0284c7); border: none; padding: 16px; font-weight: 800; border-radius: 14px; width: 100%; color: white; transition: 0.3s; }
@@ -32,7 +32,7 @@
             🌐 {% if current_lang == 'tr' %}English{% else %}Türkçe{% endif %}
         </a>
         <button onclick="toggleTheme()" class="nav-btn">
-            🌓 {{ texts.theme_btn if (texts and texts.theme_btn) else 'Mod Değiştir' }}
+            🌓 {{ texts.theme_btn if (texts and texts.theme_btn) else 'Mod' }}
         </button>
     </div>
 
@@ -44,7 +44,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5">
                     <div class="glass-card text-start">
-                        <form action="/arama?lang={{ current_lang }}" method="POST">
+                        <form action="/arama?lang={{ current_lang if current_lang else 'tr' }}" method="POST">
                             <div class="mb-3">
                                 <label class="small fw-bold text-secondary ms-2 mb-2">
                                     {{ texts.departure if (texts and texts.departure) else 'KALKIŞ DURAĞI' }}
