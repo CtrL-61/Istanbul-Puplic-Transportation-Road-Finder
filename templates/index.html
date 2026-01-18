@@ -22,7 +22,7 @@
         .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
         .custom-input { background-color: var(--bg) !important; color: var(--text) !important; border: 2px solid #334155; padding: 15px; border-radius: 14px; width: 100%; transition: 0.2s; }
         .custom-input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
-        .btn-pulse { background: linear-gradient(135deg, var(--accent), #0284c7); border: none; padding: 16px; font-weight: 800; border-radius: 14px; width: 100%; color: white; transition: 0.3s; }
+        .btn-pulse { background: linear-gradient(135deg, var(--accent), #0284c7); border: none; padding: 16px; font-weight: 800; border-radius: 14px; width: 100%; color: white; transition: 0.3s; cursor: pointer; }
         .btn-pulse:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
     </style>
 </head>
@@ -32,7 +32,7 @@
             🌐 {% if current_lang == 'tr' %}English{% else %}Türkçe{% endif %}
         </a>
         <button onclick="toggleTheme()" class="nav-btn">
-            🌓 {{ texts.theme_btn if (texts and texts.theme_btn) else 'Mod' }}
+            <span id="theme-icon">🌙</span> {{ texts.theme_btn if (texts and texts.theme_btn) else 'Mod' }}
         </button>
     </div>
 
@@ -44,7 +44,9 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5">
                     <div class="glass-card text-start">
-                        <form action="/arama?lang={{ current_lang if current_lang else 'tr' }}" method="POST">
+                        <form action="/arama" method="POST">
+                            <input type="hidden" name="lang" value="{{ current_lang if current_lang else 'tr' }}">
+
                             <div class="mb-3">
                                 <label class="small fw-bold text-secondary ms-2 mb-2">
                                     {{ texts.departure if (texts and texts.departure) else 'KALKIŞ DURAĞI' }}
@@ -84,10 +86,17 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            
+            // İkonu güncelle
+            const icon = document.getElementById('theme-icon');
+            if(icon) icon.innerText = newTheme === 'dark' ? '🌙' : '☀️';
         }
 
+        // Sayfa yüklendiğinde tercihi hatırla
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        const icon = document.getElementById('theme-icon');
+        if(icon) icon.innerText = savedTheme === 'dark' ? '🌙' : '☀️';
     </script>
 </body>
 </html>
