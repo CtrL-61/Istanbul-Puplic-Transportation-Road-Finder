@@ -104,3 +104,7 @@ body {
     height: 100%;
     background: var(--border);
 }
+
+.step:last-child {
+    margin-bottom: 0;
+}

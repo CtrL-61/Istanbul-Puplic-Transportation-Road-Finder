@@ -19,18 +19,58 @@
         body { background-color: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; padding: 20px 0; transition: 0.3s; }
         .result-card { background: var(--card); border-radius: 24px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         
-        /* Timeline */
-        .timeline { position: relative; padding-left: 35px; margin-top: 20px; }
-        .timeline::before { content: ''; position: absolute; left: 7px; top: 10px; width: 2px; height: 90%; background: var(--border); }
+        /* Gelişmiş Timeline Yapısı */
+        .timeline { 
+            position: relative; 
+            padding-left: 30px; 
+            margin-top: 20px; 
+        }
+
+        /* Hattı çizen ana dikey çizgi */
+        .timeline::before { 
+            content: ''; 
+            position: absolute; 
+            left: 7px; 
+            top: 10px; 
+            bottom: 10px; 
+            width: 4px; 
+            background: var(--accent); 
+            border-radius: 2px; 
+        }
         
-        .step { position: relative; margin-bottom: 25px; }
-        .step::after { content: ''; position: absolute; left: -34px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--card); border: 3px solid var(--accent); z-index: 2; }
+        .step { 
+            position: relative; 
+            margin-bottom: 30px; 
+            padding-left: 15px;
+        }
+
+        /* Durak Noktası (Yuvarlak) */
+        .step::after { 
+            content: ''; 
+            position: absolute; 
+            left: -30px; 
+            top: 6px; 
+            width: 16px; 
+            height: 16px; 
+            border-radius: 50%; 
+            background: var(--card); 
+            border: 3px solid var(--accent); 
+            z-index: 2; 
+            transition: 0.3s;
+        }
+
+        /* Aktarma yapılan durakları vurgula */
+        .step.transfer-node::after {
+            border-color: #f59e0b;
+            transform: scale(1.3);
+        }
         
         .time-badge { background: var(--time-bg); padding: 10px 20px; border-radius: 12px; display: inline-block; margin-bottom: 20px; border: 1px solid var(--border); }
         .badge-metro { background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
         .badge-transfer { background: rgba(245, 158, 11, 0.1); color: #f59e0b; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
         
         .share-btn { background: #25d366; color: white; border: none; padding: 15px; border-radius: 14px; font-weight: 700; width: 100%; transition: 0.3s; margin-top: 20px; }
+        .share-btn:hover { background: #1ebe57; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -46,12 +86,12 @@
             <div class="timeline">
                 {% if rota_sonucu and rota_sonucu.rota %}
                     {% for adim in rota_sonucu.rota %}
-                    <div class="step">
+                    <div class="step {% if adim.hat == 'Aktarma' %}transfer-node{% endif %}">
                         <div class="fw-bold fs-5">{{ adim.durak }}</div>
                         {% if loop.first %}
-                            <small class="text-success">{% if current_lang == 'tr' %}Başlangıç{% else %}Start{% endif %}</small>
+                            <small class="text-success fw-bold">{% if current_lang == 'tr' %}🏁 Başlangıç{% else %}🏁 Start{% endif %}</small>
                         {% elif loop.last %}
-                            <small class="text-danger">{% if current_lang == 'tr' %}Varış{% else %}End{% endif %}</small>
+                            <small class="text-danger fw-bold">{% if current_lang == 'tr' %}📍 Varış{% else %}📍 End{% endif %}</small>
                         {% elif adim.hat == 'Aktarma' %}
                             <span class="badge-transfer">🔄 {% if current_lang == 'tr' %}AKTARMA{% else %}TRANSFER{% endif %}</span>
                         {% elif adim.hat %}
@@ -77,6 +117,7 @@
     </div>
 
     <script>
+        // Tema Tercihi
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
