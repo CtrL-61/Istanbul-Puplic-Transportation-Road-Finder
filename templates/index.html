@@ -26,7 +26,6 @@
             text-align: center; margin: 40px 0 10px 0; 
         }
 
-        /* Duyuru Bandı Stilleri */
         .alert-glass {
             background: rgba(245, 158, 11, 0.1);
             border: 1px solid rgba(245, 158, 11, 0.3);
@@ -190,14 +189,32 @@
 
         <div id="tab-info" class="page-content">
             <div class="glass-card">
-                <h4 class="fw-800 mb-3">Metro Pulse</h4>
-                <p class="text-secondary small">
+                <h4 class="fw-800 mb-3 text-center">Metro Pulse</h4>
+                <div class="text-secondary small">
                     {% if current_lang == 'tr' %}
-                    Bu uygulama İstanbul metro hatlarını en hızlı şekilde birbirine bağlamak için tasarlandı.
+                        <p>Bu uygulama İstanbul metro hatlarını en hızlı şekilde birbirine bağlamak için tasarlanmış bir <strong>eğitim projesidir</strong>.</p>
+                        
+                        <div class="p-2 rounded-3 mb-3 text-center" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2);">
+                            <strong style="color: #f59e0b;">⚠️ Önemli Not:</strong><br>
+                            Varış süreleri ve doluluk oranları, yazılımın çalışma mantığını göstermek için <strong>simüle edilmiştir</strong>; gerçek zamanlı veriler değildir.
+                        </div>
+
+                        <p style="font-style: italic; border-left: 3px solid var(--accent); padding-left: 10px;">
+                            Bu proje tamamen bir <strong>Android telefon</strong> üzerinden kodlanmıştır. Tasarım ve test aşaması devam etmektedir.
+                        </p>
                     {% else %}
-                    This app is designed to connect Istanbul metro lines in the fastest way.
+                        <p>This app is an <strong>educational project</strong> designed to connect Istanbul metro lines in the fastest way.</p>
+                        
+                        <div class="p-2 rounded-3 mb-3 text-center" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2);">
+                            <strong style="color: #f59e0b;">⚠️ Important Note:</strong><br>
+                            Arrival times and occupancy rates shown are <strong>simulated</strong> to demonstrate the software's logic; they are not real-time data.
+                        </div>
+
+                        <p style="font-style: italic; border-left: 3px solid var(--accent); padding-left: 10px;">
+                            This project was developed entirely on an <strong>Android phone</strong>. It is currently in the design and testing phase.
+                        </p>
                     {% endif %}
-                </p>
+                </div>
             </div>
         </div>
     </div>
