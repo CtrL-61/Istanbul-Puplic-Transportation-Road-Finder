@@ -23,8 +23,24 @@
         .main-title { 
             font-size: clamp(2.5rem, 10vw, 4.5rem); 
             font-weight: 800; letter-spacing: -3px; 
-            text-align: center; margin: 40px 0 30px 0; 
+            text-align: center; margin: 40px 0 10px 0; 
         }
+
+        /* Duyuru Bandı Stilleri */
+        .alert-glass {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideUp 0.5s ease;
+        }
+        [data-theme="light"] .alert-glass { color: #b45309; background: rgba(245, 158, 11, 0.05); }
 
         .dashboard-nav {
             display: flex;
@@ -74,7 +90,10 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .glass-card { background: var(--card); border: 1px solid #334155; border-radius: 28px; padding: 35px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        [data-theme="light"] .glass-card { border: 1px solid #e2e8f0; box-shadow: 0 25px 50px rgba(0,0,0,0.05); }
+
         .custom-input { background-color: var(--bg) !important; color: var(--text) !important; border: 2px solid #334155; padding: 15px; border-radius: 16px; width: 100%; margin-bottom: 0; transition: 0.2s; }
+        [data-theme="light"] .custom-input { border: 2px solid #e2e8f0; }
         .custom-input:focus { border-color: var(--accent); outline: none; }
         
         .swap-btn {
@@ -99,6 +118,7 @@
         
         .top-nav { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; }
         .nav-btn { background: var(--card); border: 1px solid #334155; color: var(--text); padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.8rem; }
+        [data-theme="light"] .nav-btn { border: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
@@ -109,6 +129,13 @@
 
     <div class="container" style="max-width: 480px;">
         <h1 class="main-title">Metro <span style="color: var(--accent)">Pulse</span></h1>
+
+        {% if announcement %}
+        <div class="alert-glass">
+            <span style="font-size: 1.2rem;">⚠️</span>
+            <span style="font-size: 0.8rem; font-weight: 600;">{{ announcement }}</span>
+        </div>
+        {% endif %}
 
         <div class="dashboard-nav">
             <div class="nav-item" id="btn-city" onclick="openTab('city')">
@@ -198,14 +225,12 @@
             localStorage.setItem('theme', newTheme);
         }
 
-        // TEMA VE DİL SENKRONİZASYONU
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
-        // FORM GÖNDERİLİRKEN DİLİ KONTROL ET VE BUTON METNİNİ DEĞİŞTİR
         document.getElementById('routeForm').onsubmit = function() {
             const lang = document.documentElement.lang;
-            document.getElementById('langInput').value = lang; // Gizli inputu o anki dille güncelle
+            document.getElementById('langInput').value = lang;
             
             const btn = document.getElementById('submitBtn');
             btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> ${lang === 'tr' ? 'YOL BULUNUYOR...' : 'FINDING ROUTE...'}`;

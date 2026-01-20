@@ -108,3 +108,29 @@ body {
 .step:last-child {
     margin-bottom: 0;
 }
+
+.alert-glass {
+    background: rgba(245, 158, 11, 0.1); /* Turuncu/Sarı tonlu şeffaf arka plan */
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    color: #f59e0b;
+}
+
+.announcement-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
+}
+
+.announcement-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Light theme (aydınlık mod) için metin rengini biraz daha koyulaştıralım */
+[data-theme="light"] .announcement-text {
+    color: #b45309;
+}

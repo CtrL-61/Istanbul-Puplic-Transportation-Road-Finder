@@ -19,14 +19,33 @@
         body { background-color: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; padding: 20px 0; transition: 0.3s; }
         .result-card { background: var(--card); border-radius: 24px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         
-        /* Gelişmiş Timeline Yapısı */
+        /* Canlı Durum Kartı */
+        .live-status-card {
+            background: rgba(56, 189, 248, 0.05);
+            border-radius: 20px;
+            border: 1px dashed var(--accent);
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* Duyuru Bandı */
+        .alert-glass {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            color: #f59e0b;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
         .timeline { 
             position: relative; 
             padding-left: 30px; 
             margin-top: 20px; 
         }
 
-        /* Hattı çizen ana dikey çizgi */
         .timeline::before { 
             content: ''; 
             position: absolute; 
@@ -44,7 +63,6 @@
             padding-left: 15px;
         }
 
-        /* Durak Noktası (Yuvarlak) */
         .step::after { 
             content: ''; 
             position: absolute; 
@@ -56,10 +74,8 @@
             background: var(--card); 
             border: 3px solid var(--accent); 
             z-index: 2; 
-            transition: 0.3s;
         }
 
-        /* Aktarma yapılan durakları vurgula */
         .step.transfer-node::after {
             border-color: #f59e0b;
             transform: scale(1.3);
@@ -76,10 +92,32 @@
 <body>
     <div class="container">
         <div class="result-card mx-auto" style="max-width: 500px;">
+            
+            {% if announcement %}
+            <div class="alert-glass">
+                ⚠️ {{ announcement }}
+            </div>
+            {% endif %}
+
             <div class="text-center">
                 <div class="time-badge">
                     <span class="text-secondary small d-block">{% if current_lang == 'tr' %}TOPLAM SÜRE{% else %}TOTAL TIME{% endif %}</span>
-                    <span class="fs-3 fw-bold" style="color: var(--accent)">{{ rota_sonucu.toplam_sure if rota_sonucu else '?' }} {% if current_lang == 'tr' %}Dakika{% else %}Mins{% endif %}</span>
+                    <span class="fs-3 fw-800" style="color: var(--accent)">{{ rota_sonucu.toplam_sure if rota_sonucu else '?' }} {% if current_lang == 'tr' %}Dakika{% else %}Mins{% endif %}</span>
+                </div>
+            </div>
+
+            <div class="live-status-card">
+                <div class="row text-center">
+                    <div class="col-6 border-end">
+                        <small class="text-secondary d-block fw-bold" style="font-size: 0.65rem;">{% if current_lang == 'tr' %}SONRAKİ TREN{% else %}NEXT TRAIN{% endif %}</small>
+                        <span class="fw-800 text-success">{{ live_info.dakika }} dk</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-secondary d-block fw-bold" style="font-size: 0.65rem;">{% if current_lang == 'tr' %}DOLULUK{% else %}OCCUPANCY{% endif %}</small>
+                        <span class="fw-800 {% if live_info.doluluk == 'Yüksek' %}text-danger{% elif live_info.doluluk == 'Orta' %}text-warning{% else %}text-success{% endif %}">
+                            {{ live_info.doluluk }}
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -117,7 +155,6 @@
     </div>
 
     <script>
-        // Tema Tercihi
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
